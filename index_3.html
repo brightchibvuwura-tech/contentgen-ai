@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ContentGen AI — Free Hook & Caption Generator</title>
+<meta name="description" content="Generate scroll-stopping hooks and captions for YouTube, TikTok, Instagram, Twitter and more. Free AI powered.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0A0A0F;--surface:#13131A;--surface2:#1C1C26;--border:#2A2A38;--border2:#363648;--text:#F0F0FF;--muted:#8888AA;--dim:#55556A;--accent:#7C6DFA;--accent2:#5B4FD4;--accent-glow:rgba(124,109,250,0.15);--green:#34D399;--green-bg:rgba(52,211,153,0.1);--radius:12px;--radius-sm:8px;--radius-lg:16px}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased}
+.orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+.orb1{width:500px;height:500px;background:rgba(124,109,250,0.08);top:-100px;right:-100px}
+.orb2{width:400px;height:400px;background:rgba(52,211,153,0.05);bottom:100px;left:-150px}
+nav{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:60px;border-bottom:1px solid var(--border)}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:16px;color:var(--text)}
+.logo-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;box-shadow:0 0 10px var(--accent)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-badge{font-size:11px;padding:3px 10px;border-radius:100px;background:var(--accent-glow);color:var(--accent);border:1px solid rgba(124,109,250,0.3);font-weight:600}
+.nav-cta{font-size:13px;font-weight:600;padding:7px 16px;border-radius:var(--radius-sm);background:var(--accent);color:white;text-decoration:none;transition:background .15s}
+.nav-cta:hover{background:var(--accent2)}
+.hero{position:relative;z-index:1;text-align:center;padding:72px 24px 48px;max-width:700px;margin:0 auto}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--accent);background:var(--accent-glow);border:1px solid rgba(124,109,250,0.25);padding:5px 14px;border-radius:100px;margin-bottom:24px;letter-spacing:.04em;text-transform:uppercase}
+.pulse{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-size:clamp(30px,5vw,54px);font-weight:800;line-height:1.1;letter-spacing:-1.5px;margin-bottom:20px}
+.grad{background:linear-gradient(135deg,#7C6DFA 0%,#A78BFA 50%,#34D399 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sub{font-size:17px;color:var(--muted);max-width:480px;margin:0 auto 32px;line-height:1.7}
+.plts{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:48px}
+.plt{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;padding:6px 14px;border-radius:100px;border:1px solid var(--border2);color:var(--muted);background:var(--surface)}
+.pltdot{width:7px;height:7px;border-radius:50%}
+.wrap{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:0 20px 40px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.ctop{padding:28px 28px 0}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;letter-spacing:.04em;text-transform:uppercase}
+.field textarea,.field select{width:100%;padding:12px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:'Inter',sans-serif;color:var(--text);outline:none;transition:border-color .15s;resize:vertical}
+.field textarea{min-height:80px}
+.field textarea:focus,.field select:focus{border-color:var(--accent)}
+.field select option{background:var(--surface2)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.psel{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:20px}
+.pbtn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:transparent;cursor:pointer;transition:all .15s;color:var(--dim);font-family:'Inter',sans-serif}
+.pbtn:hover{border-color:var(--border2);color:var(--muted)}
+.pbtn.on{border-color:var(--accent);background:var(--accent-glow);color:var(--accent)}
+.pico{font-size:16px;line-height:1}
+.pname{font-size:10px;font-weight:600}
+.gbwrap{padding:20px 28px 28px}
+.gbtn{width:100%;padding:15px;background:var(--accent);color:white;font-size:15px;font-weight:700;font-family:'Inter',sans-serif;border:none;border-radius:var(--radius);cursor:pointer;transition:all .15s;letter-spacing:-.2px}
+.gbtn:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(124,109,250,0.3)}
+.gbtn:active{transform:none}
+.gbtn:disabled{background:var(--border2);color:var(--dim);cursor:not-allowed;transform:none;box-shadow:none}
+.loading{display:none;text-align:center;padding:40px 28px}
+.ring{width:40px;height:40px;border:3px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading p{font-size:14px;color:var(--muted)}
+.results{display:none;padding:0 28px 8px}
+.rhdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.rtitle{font-size:14px;font-weight:700}
+.rmeta{font-size:11px;color:var(--dim)}
+.hcard{background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:10px;position:relative;transition:border-color .2s}
+.hcard:hover{border-color:var(--border2)}
+.hbadge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);background:var(--accent-glow);border:1px solid rgba(124,109,250,0.2);padding:2px 8px;border-radius:100px;margin-bottom:8px}
+.htext{font-size:13px;line-height:1.7;padding-right:52px}
+.cpbtn{position:absolute;top:14px;right:14px;background:var(--border);border:none;border-radius:var(--radius-sm);padding:5px 11px;font-size:11px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;color:var(--muted);transition:all .15s}
+.cpbtn:hover{background:var(--border2);color:var(--text)}
+.cpbtn.ok{background:var(--green-bg);color:var(--green);border:1px solid rgba(52,211,153,0.2)}
+.morebtn{width:100%;padding:11px;background:transparent;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;color:var(--muted);margin-bottom:20px;transition:all .15s}
+.morebtn:hover{border-color:var(--border2);color:var(--text)}
+.err{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:var(--radius-sm);padding:12px 16px;font-size:13px;color:#F87171;display:none;margin:0 28px 16px}
+.upsell{display:none;padding:0 20px 60px;max-width:680px;margin:0 auto}
+.ucard{background:linear-gradient(135deg,var(--surface) 0%,rgba(124,109,250,0.06) 100%);border:1px solid rgba(124,109,250,0.2);border-radius:var(--radius-lg);padding:32px;text-align:center;position:relative;overflow:hidden}
+.ucard::before{content:'';position:absolute;top:-50px;right:-50px;width:200px;height:200px;background:var(--accent-glow);border-radius:50%;filter:blur(40px);pointer-events:none}
+.uey{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.ucard h3{font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:10px}
+.ucard p{font-size:14px;color:var(--muted);margin-bottom:24px;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.7}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:28px;text-align:left}
+.feat{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);padding:5px 0}
+.fchk{width:16px;height:16px;border-radius:50%;background:var(--green-bg);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--green);flex-shrink:0}
+.ubtn{display:inline-block;background:var(--accent);color:white;font-size:15px;font-weight:700;padding:14px 36px;border-radius:var(--radius);text-decoration:none;transition:all .15s}
+.ubtn:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(124,109,250,0.4)}
+.uprice{font-size:12px;color:var(--dim);margin-top:12px}
+.how{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:0 20px 80px}
+.how h2{font-size:18px;font-weight:700;margin-bottom:20px;text-align:center}
+.hgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.hbox{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 16px;text-align:center}
+.hnum{width:34px;height:34px;background:var(--accent-glow);border:1px solid rgba(124,109,250,0.3);color:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;margin:0 auto 12px}
+.hbox h4{font-size:13px;font-weight:700;margin-bottom:6px}
+.hbox p{font-size:12px;color:var(--muted);line-height:1.5}
+footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:20px 24px;text-align:center}
+footer p{font-size:12px;color:var(--dim)}
+footer a{color:var(--accent);text-decoration:none}
+@media(max-width:520px){.psel{grid-template-columns:repeat(3,1fr)}.frow{grid-template-columns:1fr}.fgrid{grid-template-columns:1fr}.hgrid{grid-template-columns:1fr}.ctop{padding:20px 16px 0}.gbwrap{padding:16px 16px 20px}.results{padding:0 16px 8px}.err{margin:0 16px 12px}}
+</style>
+</head>
+<body>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<nav>
+  <div class="logo"><div class="logo-dot"></div>ContentGen AI</div>
+  <div class="nav-right">
+    <span class="nav-badge">Free Tool</span>
+    <a class="nav-cta" href="https://brightchibvu.gumroad.com/l/mdxwqx" target="_blank">Get 25 Prompts — $7</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="eyebrow"><div class="pulse"></div>Powered by Claude AI</div>
+  <h1>Generate <span class="grad">Content That Converts</span></h1>
+  <p class="sub">Scroll-stopping hooks and captions for every platform. Free, instant, no sign-up needed.</p>
+  <div class="plts">
+    <div class="plt"><div class="pltdot" style="background:#FF0000"></div>YouTube</div>
+    <div class="plt"><div class="pltdot" style="background:#69C9D0"></div>TikTok</div>
+    <div class="plt"><div class="pltdot" style="background:#E1306C"></div>Instagram</div>
+    <div class="plt"><div class="pltdot" style="background:#1DA1F2"></div>Twitter / X</div>
+    <div class="plt"><div class="pltdot" style="background:#0A66C2"></div>LinkedIn</div>
+    <div class="plt"><div class="pltdot" style="background:#FF4500"></div>Threads</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="card">
+    <div class="ctop">
+      <div class="field">
+        <label>Platform</label>
+        <div class="psel" id="psel">
+          <button class="pbtn on" data-p="YouTube" onclick="sp(this)"><span class="pico">▶</span><span class="pname">YouTube</span></button>
+          <button class="pbtn" data-p="TikTok" onclick="sp(this)"><span class="pico">♪</span><span class="pname">TikTok</span></button>
+          <button class="pbtn" data-p="Instagram" onclick="sp(this)"><span class="pico">◈</span><span class="pname">Instagram</span></button>
+          <button class="pbtn" data-p="Twitter/X" onclick="sp(this)"><span class="pico">𝕏</span><span class="pname">Twitter/X</span></button>
+          <button class="pbtn" data-p="LinkedIn" onclick="sp(this)"><span class="pico">in</span><span class="pname">LinkedIn</span></button>
+          <button class="pbtn" data-p="Threads" onclick="sp(this)"><span class="pico">@</span><span class="pname">Threads</span></button>
+        </div>
+      </div>
+      <div class="field">
+        <label>What is your content about?</label>
+        <textarea id="topic" placeholder="e.g. I grew my account from 0 to 50,000 followers in 3 months without posting every day..."></textarea>
+      </div>
+      <div class="frow">
+        <div class="field">
+          <label>Your niche</label>
+          <select id="niche">
+            <option value="content creation and social media growth">Content Creation</option>
+            <option value="fitness and health">Fitness and Health</option>
+            <option value="personal finance and money">Personal Finance</option>
+            <option value="gaming">Gaming</option>
+            <option value="tech and gadgets">Tech and Gadgets</option>
+            <option value="travel and adventure">Travel</option>
+            <option value="food and cooking">Food and Cooking</option>
+            <option value="fashion and beauty">Fashion and Beauty</option>
+            <option value="business and entrepreneurship">Business</option>
+            <option value="education and studying">Education</option>
+            <option value="mental health and wellness">Wellness</option>
+            <option value="lifestyle and motivation">Lifestyle</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Hook style</label>
+          <select id="style">
+            <option value="mix">Best mix for platform</option>
+            <option value="curiosity">Curiosity Gap</option>
+            <option value="bold">Bold / Hot Take</option>
+            <option value="problem">Relatable Problem</option>
+            <option value="story">Personal Story</option>
+            <option value="number">Number / List</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="gbwrap">
+      <button class="gbtn" id="gbtn" onclick="gen()">Generate Content — Free</button>
+    </div>
+    <div class="err" id="err"></div>
+    <div class="loading" id="loading"><div class="ring"></div><p>Writing with Claude AI...</p></div>
+    <div class="results" id="results">
+      <div class="rhdr"><span class="rtitle" id="rtitle">Your hooks</span><span class="rmeta" id="rmeta"></span></div>
+      <div id="hlist"></div>
+      <button class="morebtn" onclick="gen()">Generate 5 more</button>
+    </div>
+  </div>
+</div>
+
+<div class="upsell" id="upsell">
+  <div class="ucard">
+    <div class="uey">Want more like this?</div>
+    <h3>25 Claude Prompts for Content Creators</h3>
+    <p>This tool uses just one prompt. The full pack covers scripts, video ideas, titles, SEO descriptions, and content planning — ready to copy and paste.</p>
+    <div class="fgrid">
+      <div class="feat"><div class="fchk">✓</div>5 hook writing prompts</div>
+      <div class="feat"><div class="fchk">✓</div>5 video idea generators</div>
+      <div class="feat"><div class="fchk">✓</div>5 script and outline prompts</div>
+      <div class="feat"><div class="fchk">✓</div>5 title and SEO prompts</div>
+      <div class="feat"><div class="fchk">✓</div>5 content planning prompts</div>
+      <div class="feat"><div class="fchk">✓</div>Instant PDF download</div>
+    </div>
+    <a class="ubtn" href="https://brightchibvu.gumroad.com/l/mdxwqx" target="_blank">Get the Full Pack — $7</a>
+    <p class="uprice">One-time payment &nbsp;·&nbsp; Instant download &nbsp;·&nbsp; No subscription</p>
+  </div>
+</div>
+
+<div class="how">
+  <h2>How it works</h2>
+  <div class="hgrid">
+    <div class="hbox"><div class="hnum">1</div><h4>Pick your platform</h4><p>Select where you're posting — the AI adapts the style and length automatically</p></div>
+    <div class="hbox"><div class="hnum">2</div><h4>Describe your content</h4><p>Tell Claude what your video, post, or reel is about in plain English</p></div>
+    <div class="hbox"><div class="hnum">3</div><h4>Copy and post</h4><p>Pick the hook that hits hardest and use it in your next piece of content</p></div>
+  </div>
+</div>
+
+<footer><p>Built with Claude AI &nbsp;·&nbsp; <a href="https://brightchibvu.gumroad.com/l/mdxwqx" target="_blank">Get 25 Full Prompts for $7</a></p></footer>
+
+<script>
+const PC={"YouTube":{fmt:"video hook (spoken first 5-10 seconds)",len:"2-3 sentences",note:"must make viewer feel they'll miss out if they stop watching"},"TikTok":{fmt:"TikTok hook (first 3 seconds)",len:"1-2 punchy sentences",note:"ultra short, high energy, stop the scroll instantly"},"Instagram":{fmt:"Instagram caption or Reel hook",len:"2-3 sentences",note:"aesthetic and lifestyle tone works well, suitable for Reels and feed"},"Twitter/X":{fmt:"tweet opener",len:"1-2 sentences max",note:"provocative, opinionated or surprising — optimised for retweets"},"LinkedIn":{fmt:"LinkedIn post opener",len:"2-3 sentences",note:"professional but personal — spark a conversation or share a counterintuitive insight"},"Threads":{fmt:"Threads post",len:"1-3 sentences",note:"casual and conversational, relatable angle performs well"}};
+const HT={mix:["Curiosity Gap","Bold Claim","Relatable Problem","Story Drop","Number Hook"],curiosity:["Curiosity Gap","The Tease","Unanswered Question","Surprising Twist","Hidden Truth"],bold:["Bold Claim","Hot Take","The Contrarian","Expert Opener","Confident Statement"],problem:["Relatable Problem","Pain Point","Frustration Mirror","Been There","The Struggle"],story:["Story Drop","Scene Opener","First Person Hook","The Moment","Flashback"],number:["Number Hook","Specific Stat","The Countdown","List Tease","Track Record"]};
+let AP="YouTube";
+function sp(b){document.querySelectorAll('.pbtn').forEach(x=>x.classList.remove('on'));b.classList.add('on');AP=b.dataset.p}
+async function gen(){
+  const topic=document.getElementById('topic').value.trim();
+  const niche=document.getElementById('niche').value;
+  const style=document.getElementById('style').value;
+  if(!topic){showE("Please describe what your content is about.");return}
+  const btn=document.getElementById('gbtn');
+  btn.disabled=true;btn.textContent="Generating...";
+  document.getElementById('err').style.display='none';
+  document.getElementById('results').style.display='none';
+  document.getElementById('upsell').style.display='none';
+  document.getElementById('loading').style.display='block';
+  const c=PC[AP]||PC.YouTube;
+  const types=HT[style]||HT.mix;
+  const prompt=`You are an expert social media content strategist for ${AP}.\n\nGenerate exactly 5 ${c.fmt}s for this content.\n\nTopic: ${topic}\nNiche: ${niche}\nPlatform: ${AP}\nHook types (one each): ${types.join(', ')}\nLength: ${c.len}\nNotes: ${c.note}\n\nRules:\n- Each hook must be ${c.len}\n- Natural spoken voice, not formal\n- Each must make the audience stop or keep watching\n- Return ONLY the 5 hooks separated by a blank line\n- No numbers, no labels, no preamble — just the hooks`;
+  try{
+    const res=await fetch("https://text.pollinations.ai/",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        messages:[
+          {role:"system",content:"You are an expert social media content strategist. When given instructions, return ONLY the requested hooks with no extra text, labels, or numbering."},
+          {role:"user",content:prompt}
+        ],
+        model:"openai",
+        seed:Math.floor(Math.random()*9999)
+      })
+    });
+    if(!res.ok)throw new Error("API "+res.status);
+    const text=await res.text();
+    const hooks=text.split(/\n\n+/).map(h=>h.trim()).filter(h=>h.length>10&&!h.match(/^hook\s*\d/i));
+    if(!hooks.length)throw new Error("empty");
+    showR(hooks,types,topic);
+  }catch(e){showE("Something went wrong. Please try again.");console.error(e)}
+  finally{document.getElementById('loading').style.display='none';btn.disabled=false;btn.textContent="Generate Content — Free"}
+}
+function showR(hooks,types,topic){
+  document.getElementById('hlist').innerHTML=hooks.slice(0,5).map((h,i)=>`<div class="hcard"><div class="hbadge">${types[i]||"Hook "+(i+1)}</div><div class="htext">${esc(h)}</div><button class="cpbtn" onclick="cp(this,\`${escJ(h)}\`)">Copy</button></div>`).join('');
+  document.getElementById('rtitle').textContent="Your "+AP+" hooks";
+  document.getElementById('rmeta').textContent='"'+topic.slice(0,42)+(topic.length>42?'...':'')+'"';
+  document.getElementById('results').style.display='block';
+  document.getElementById('upsell').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function cp(btn,text){navigator.clipboard.writeText(text).then(()=>{btn.textContent="Copied!";btn.classList.add('ok');setTimeout(()=>{btn.textContent="Copy";btn.classList.remove('ok')},2000)})}
+function showE(msg){const e=document.getElementById('err');e.textContent=msg;e.style.display='block'}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function escJ(s){return s.replace(/\\/g,'\\\\').replace(/`/g,'\\`').replace(/\$/g,'\\$')}
+document.getElementById('topic').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();gen()}});
+</script>
+</body>
+</html>
